@@ -53,7 +53,7 @@ Widget::Widget(QWidget *parent)
         QString dayStr = QString::number(day);
         qDebug() << getMonth(month);
 
-        QString res = "start msedge " + firstPart + monthStr + "+" + dayStr;
+        QString res = "start msedge " + firstPart + monthStr + "+" + dayStr + ",";
 
         system(res.toStdString().c_str());
     });
