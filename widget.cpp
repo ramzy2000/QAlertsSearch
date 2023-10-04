@@ -44,23 +44,31 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     calendar = ui->calendarWidget;
 
-    connect(ui->pushButton, &QPushButton::clicked, [=](){
-        QDate date = calendar->selectedDate();
-        int day = date.day();
-        int month = date.month();
-        QString firstPart = "https://qalerts.app/?q=";
-        QString monthStr = getMonth(month);
-        QString dayStr = QString::number(day);
-        qDebug() << getMonth(month);
-
-        QString res = "start msedge " + firstPart + monthStr + "+" + dayStr + ",";
-
-        system(res.toStdString().c_str());
-    });
+    connect(ui->searchButton, &QPushButton::clicked, this, &Widget::searchButton_clicked);
 }
 
 Widget::~Widget()
 {
     delete ui;
+}
+
+
+void Widget::searchButton_clicked()
+{
+    QDate date = calendar->selectedDate();
+    int day = date.day();
+    int month = date.month();
+    QString firstPart = "https://qalerts.app/?q=";
+    QString monthStr = getMonth(month);
+    QString dayStr = QString::number(day);
+    if(dayStr.length() < 2)
+    {
+        dayStr = "0"+dayStr;
+    }
+    qDebug() << getMonth(month);
+
+    QString command = "start msedge " + firstPart + monthStr + "+" + dayStr + ",";
+
+    system(command.toLatin1());
 }
 

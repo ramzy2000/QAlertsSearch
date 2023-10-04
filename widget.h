@@ -18,6 +18,9 @@ public:
 
     QCalendarWidget* calendar = nullptr;
 
+private slots:
+    void searchButton_clicked();
+
 private:
     Ui::Widget *ui;
 };
